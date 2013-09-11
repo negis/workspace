@@ -1,0 +1,39 @@
+package greeter.resource;
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import javax.ws.rs.*;
+import javax.ws.rs.core.*;
+import javax.xml.bind.JAXBElement;
+
+/**
+ * Greet a user
+ */
+@Path("/greeting")
+public class GreeterResource {
+	@Context
+	UriInfo uriInfo;  // info about our URI
+	// map of names to Greetings
+	Map<,> map = new HashMap<String, Greeting>();
+	
+    @GET
+    @Produces("text/plain")
+    public String getGreeting() {
+        return "Hello, web server";
+    }
+    
+    @PUT
+    @Path("{name}")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response putGreeting(@PathParam("name") String name, JAXBElement<Greeting> jax)
+    {
+    	Greeting greeting = (Greeting)jax.getValue();
+    	
+    	return Response
+    }
+    
+    
+
+}

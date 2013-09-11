@@ -1,0 +1,5 @@
+package greeter.resource;
+
+public class Greeting {
+
+}
