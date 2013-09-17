@@ -1,0 +1,181 @@
+package todo.client;
+
+import java.net.URI;
+import java.util.List;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
+import org.junit.*;
+import org.junit.runner.Description;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
+import todo.entity.Todo;
+import com.sun.jersey.api.client.*;
+import com.sun.jersey.api.client.ClientResponse.Status;
+import com.sun.jersey.api.client.config.ClientConfig;
+
+/**
+ * JUnit tests for testing a web service using Jersey Client and JUnit.
+ * It provides some example code of how to create tests.
+ * You can start a server (for your web service) separately
+ * or start the service here.
+ * 
+ * Ref:  Jersey 1.17 API docs
+ */
+
+public class TodoResourceTest {
+	
+	/** default values of the web service to test */
+	public static String APP_URL = "http://localhost";
+	public static int APP_PORT = 80;
+	
+	/** single client */
+	private Client client;
+	private String url;
+	private int port;
+
+	/** Initialize a new test object using default URL and port values.
+	 *  JUnit tests requires a default constructor.
+	 */
+	public TodoResourceTest( ) {
+		// initialize the Jersey client (one client for entire run)
+		this.url = APP_URL;
+		this.port = APP_PORT;
+		client = createClient();
+	}
+
+	/**
+	 * If your RESTful Todo server isn't running, start one here.
+	 */
+	@BeforeClass
+	public static void runServer() {
+		// start a server if necessary. 
+		// See JerseyServer.main() for example.
+	}
+	
+	/**
+	 * If you start your own server then stop it here.
+	 */
+	@AfterClass
+	public static void stopServer() {
+		//  stop the server, if necessary.
+	}
+
+	/**
+	 * Create and return a new Jersey Client.
+	 * @return a Jersey Client
+	 */
+	private static Client createClient() {
+
+		Client client = Client.create();
+		client.getProperties().put(ClientConfig.PROPERTY_FOLLOW_REDIRECTS, true);
+		
+		// Optional: add a filter to display request and response
+		// Logging filter can use a java.util.logging.Logger or any PrintStream
+		// LoggingFilter logFilter = new LoggingFilter( System.out );
+		// You can add filters to a client or a WebResource
+		// client.addFilter( logFilter );
+		return client;
+	}
+	
+	/** Create a new web resource, using the URL and port properties as web service location,
+	 * and appending the path parameter to web service location.
+	 * @param path a path to append to web service location
+	 * @return WebResource that uses Jersey Client
+	 */
+	public WebResource createWebResource(String path) {
+		// tedious way of setting the port
+		UriBuilder builder = UriBuilder.fromUri(url).port(port);
+		URI uri = builder.build();
+		//System.out.println("building web resource at uri "+uri);
+		return client.resource(uri).path(path);
+	}
+	
+	/**
+	 * Test getting a single Todo. 
+	 * This is a bad test since it assumes there is a Todo with id 1. 
+	 */
+	@Test(timeout=1000)
+	public void testGetOneTodo( ) {
+		
+		WebResource res = createWebResource("/todo/1");
+		System.out.println("Testing URL: " + res.getURI().toString() );
+		
+		ClientResponse resp = res.accept(MediaType.APPLICATION_XML).get(ClientResponse.class);		
+		
+		int status = resp.getStatus();
+		Assert.assertEquals( 200, status);
+		
+		Todo todo = resp.getEntity(Todo.class);
+		Assert.assertNotNull(todo);
+		Assert.assertEquals( 1, todo.getId() );
+	}
+	
+	@Test(timeout=1000)
+	public void testGetAllTodos() {
+
+		WebResource resource = createWebResource("/todo");
+		// How to convert XML to a List<?> of entities without using a separate class
+		List<Todo> todos = resource.accept("application/xml").get( new GenericType<List<Todo>>() { });
+
+		//TODO write your own tests
+		for(Todo todo: todos) { System.out.println(todo.getId()); System.out.println(todo); }
+	}
+	
+	/** Update a Todo. This is a bad test. It assumes there is Todo id 1. */
+	@Test(timeout=1000)
+	public void testPut( ) {
+		String path = "/todo/1";
+		WebResource res = createWebResource(path);
+		Todo todo = res.accept(MediaType.APPLICATION_XML).get(Todo.class);
+		org.junit.Assume.assumeNotNull(todo);
+		
+		Assert.assertEquals(1, todo.getId() );
+		
+		// probably a unique description not already in Todo database
+		String description = String.format("time is now %tT", System.currentTimeMillis());
+		
+		// change the Todo status, too
+		boolean done = ! todo.isDone();
+		todo.setDone(done);
+		
+		todo.setDescription(description);
+		// create a new WebResource because we already set Accepts in old one
+		res = createWebResource(path);
+		// type( MediaType ) is used to set the Content-Type of your request
+		ClientResponse resp = 
+				res.type(MediaType.APPLICATION_XML).put(ClientResponse.class, todo);
+		
+		Assert.assertEquals( 200, resp.getStatus() );
+		
+		// get it again to verify change
+		Todo todoAgain = res.accept(MediaType.APPLICATION_XML).get(Todo.class);
+		Assert.assertEquals( 1, todoAgain.getId() );
+		Assert.assertEquals( description, todoAgain.getDescription() );
+		Assert.assertEquals( done, todoAgain.isDone() );
+	}
+	
+	/**
+	 * Run the test suite and print results.
+	 * If you are testing inside of Eclipse or NetBeans you don't need this.
+	 * In Eclipse or NetBeans use Run As -> JUnit test.
+	 */
+	public static void main(String[] args) {
+		Result result = org.junit.runner.JUnitCore.runClasses( TodoResourceTest.class );
+		int count = result.getRunCount();
+		int failed = result.getFailureCount();
+		System.out.printf("Tests Run: %d   Success: %d  Failure: %d\n",
+				count, count-failed, failed);
+		List<Failure> failures = result.getFailures();
+		// this doesn't seem to return all the failures
+		for(Failure f: failures) {
+			Description d = f.getDescription();
+			System.out.println( f.getTestHeader() +": "+ f.getMessage() );
+			System.out.println( d.getDisplayName() );
+		}
+		System.out.printf("Tests Run: %d   Success: %d  Failure: %d\n",
+				count, count-failed, failed);
+		// return the number of failures
+		System.exit(failed);
+	}
+}

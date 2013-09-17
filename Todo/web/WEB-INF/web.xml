@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>Todo</display-name>
+  <servlet>
+    <description>Front controller for todo Web Application</description>
+    <display-name>TodoController</display-name>
+    <servlet-name>TodoController</servlet-name>
+    <servlet-class>todo.controller.TodoController</servlet-class>
+    <init-param>
+      <param-name>viewDirectory</param-name>
+      <param-value>/WEB-INF/jsp</param-value>
+    </init-param>
+  </servlet>
+  <servlet>
+    <servlet-name>Jersey</servlet-name>
+    <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>com.sun.jersey.config.property.packages</param-name>
+      <param-value>todo.resource</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TodoController</servlet-name>
+    <url-pattern>/view</url-pattern>
+    <url-pattern>/edit</url-pattern>
+    <url-pattern>/add</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Jersey</servlet-name>
+    <url-pattern>/rest/*</url-pattern>
+  </servlet-mapping>
+  <listener>
+    <listener-class>todo.controller.ApplicationListener</listener-class>
+  </listener>
+  <!--  the FIRST welcome-file found in app is used as welcome file. -->
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+   
+</web-app>

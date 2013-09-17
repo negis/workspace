@@ -1,0 +1,17 @@
+
+h1 { font-family: Arial, sans-serif; font-size: 24px; color: #004000;}
+h2 { font-family: Arial, sans-serif; font-size: 18px; color: #004000;}
+h3 { font-family: Arial, sans-serif; font-size: 14px; color: #004000;}
+dt { font-family: Arial, sans-serif; }
+
+body,p,dd,,td { 
+	font-family: "Times New Roman", Times, serif; font-size: 11pt; 
+	}
+.code { font-family: "Courier New", Courier, fixed; }
+.term { font-family: Arial, Helvetica, sans-serif;  }
+
+
+/*a.mainlink:link { text-decoration: none; color: #ffffff; font-family: Verdana, Arial, sans-serif; font-size: 10px; font-weight: bold; }
+ a.mainlink:visited { text-decoration: none; color: #ffffff; font-family: Verdana, Arial, sans-serif; font-size: 10px; font-weight: bold; }
+ a.mainlink:hover { text-decoration: underline; color: #ffffff; font-family: Verdana, Arial, sans-serif; font-size: 10px; font-weight: bold; }
+ */

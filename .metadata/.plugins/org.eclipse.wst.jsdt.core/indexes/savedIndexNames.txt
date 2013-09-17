@@ -1,0 +1,6 @@
+INDEX VERSION 1.122+/Users/negis/Documents/workspace/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+3017949385.index
+2950399476.index
+2137986236.index
+3327902799.index
+1590397258.index

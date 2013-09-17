@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<!-- factory="org.apache.tomcat.jdbc.pool.DataSourceFactory" 
+	     creates a connection pool (see Tomcat 7 documentation).
+	     For a plain )-->
+	<!-- all JNDI resources defined in Tomcat start with "java:/comp/env"
+	     So the following resource is "java:/comp/env/jdbc/todo"
+	  -->
+	 <!-- 
+	<Resource name="jdbc/todo"
+            auth="Container"
+            type="javax.sql.DataSource"
+            factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+            username="todoadmin"
+            password="admin"
+            driverClassName="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost/todo"
+            maxActive="10"
+            maxIdle="4"/>
+	 -->
+	<!-- DataSourceRealm using JNDI to access database resource -->
+	<!-- 
+	<Realm
+      	className="org.apache.catalina.realm.DataSourceRealm"
+      	dataSourceName="jdbc/todo"
+      	userTable="users"
+      	userNameCol="username"
+      	userCredCol="password"
+      	userRoleTable="user_roles"
+      	roleNameCol="rolename"
+      	/>
+	 -->
+	
+	<!-- JDBC Realm access database using JDBC directly -->
+	<!-- 
+    <Realm
+      	className="org.apache.catalina.realm.JDBCRealm"
+      	connectionName="todoadmin"
+      	connectionPassword="justdoit"
+      	connectionURL="jdbc:mysql://se.cpe.ku.ac.th/todousers"
+      	driverName="com.mysql.jdbc.Driver"
+      	userTable="users"
+      	userNameCol="user_name"
+      	userCredCol="user_pass"
+      	userRoleTable="user_roles"
+      	roleNameCol="role_name"
+      	/>
+      	 -->
+     <!--  Another JDBC realm, using Derby
+     <Realm
+      	className="org.apache.catalina.realm.JDBCRealm"
+      	connectionName="sa"
+      	connectionPassword=""
+      	connectionURL="jdbc:derby:/temp/todousers"
+      	driverName="org.apache.derby.jdbc.EmbeddedDriver"
+      	userTable="users"
+      	userNameCol="user_name"
+      	userCredCol="user_pass"
+      	userRoleTable="user_roles"
+      	roleNameCol="role_name"
+      	/>
+      	-->
+      	
+</Context>

@@ -1,2 +1,2 @@
 eclipse.preferences.version=1
-task-tag-projects-already-scanned=initialTest,NegisuApp,MMA,reeReader,rssReaderJDOM,Greeter
+task-tag-projects-already-scanned=initialTest,NegisuApp,MMA,rssReaderJDOM,Greeter,Todo,rssReader

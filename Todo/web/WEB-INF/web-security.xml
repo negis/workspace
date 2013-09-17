@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  This file contains example access constraints that can be used in web.xml
+      To add container managed authentication, define a "realm" for security info
+      (in META-INF/context.xml or in the container itself) and add these lines
+      to web.xml.
+ -->
+<web-app>
+	 
+<!-- this is for container managed security -->
+  <security-constraint>
+  	<web-resource-collection>
+  		<web-resource-name>Restricted</web-resource-name>
+  		<url-pattern>/add</url-pattern>
+  	</web-resource-collection>
+  	<auth-constraint>
+  		<!-- only users in this role can access the url -->
+  		<role-name>todoer</role-name>
+  	</auth-constraint>
+  </security-constraint>
+  
+  <security-constraint>
+  	<web-resource-collection>
+  		<web-resource-name>Restrict Posting using REST</web-resource-name>
+  		<url-pattern>/rest/*</url-pattern>
+  		<http-method>PUT</http-method>
+  		<http-method>DELETE</http-method>
+  		<http-method>POST</http-method>
+  	</web-resource-collection>
+  	<auth-constraint>
+  		<role-name>todoer</role-name>
+  	</auth-constraint>
+  </security-constraint>
+  
+  <!-- use DIGEST so we don't send password over the network -->
+  <login-config>
+  	<auth-method>DIGEST</auth-method>
+  	<!-- this name is useless. Its just a string displayed in login dialog. -->
+  	<realm-name>UserDatabase</realm-name>
+  </login-config>
+ 
+</web-app>  

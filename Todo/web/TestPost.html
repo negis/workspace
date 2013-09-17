@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+      <h1>Post a New Todo to Web Service URL</h1>
+	  <form method="POST" action="http://localhost/Todo/rest/todo">
+		<table >
+		<tr>
+		<td align="right">Description:</td> <td> <input width="24" name="description" value=""/></td>
+		</tr>
+		<tr>
+		<td align="right">Date due:</td> <td> <input type="date" width="12" name="duedate" value=""/></td>
+		</tr>
+		<tr>
+		<td align="right">Priority:</td> <td> <input width="2" name="priority" value=""/> </td>
+		</tr>
+		<tr>
+		<td colspan="2" align="center">
+		<input type="submit" value="Submit"  />
+		</td>
+		</tr>
+		</table>
+	</form>
+</body>
+</html>

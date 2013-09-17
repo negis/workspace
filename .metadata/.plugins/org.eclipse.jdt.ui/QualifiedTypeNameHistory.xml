@@ -19,7 +19,6 @@
 <fullyQualifiedTypeName name="org.jdom2.Element"/>
 <fullyQualifiedTypeName name="org.jdom2.JDOMException"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
-<fullyQualifiedTypeName name="javax.xml.bind.annotation.XmlAttribute"/>
 <fullyQualifiedTypeName name="model.channel"/>
 <fullyQualifiedTypeName name="javax.xml.bind.JAXBException"/>
 <fullyQualifiedTypeName name="javax.xml.bind.JAXBContext"/>
@@ -43,12 +42,13 @@
 <fullyQualifiedTypeName name="java.awt.event.MouseListener"/>
 <fullyQualifiedTypeName name="java.awt.event.MouseAdapter"/>
 <fullyQualifiedTypeName name="java.awt.event.MouseEvent"/>
-<fullyQualifiedTypeName name="javax.ws.rs.Consumes"/>
-<fullyQualifiedTypeName name="javax.ws.rs.core.MediaType"/>
 <fullyQualifiedTypeName name="java.awt.FlowLayout"/>
 <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
 <fullyQualifiedTypeName name="javax.xml.bind.annotation.XmlRootElement"/>
 <fullyQualifiedTypeName name="javax.ws.rs.core.Response"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="greeter.resource.Greeting"/>
+<fullyQualifiedTypeName name="javax.ws.rs.Consumes"/>
+<fullyQualifiedTypeName name="javax.xml.bind.annotation.XmlAttribute"/>
+<fullyQualifiedTypeName name="javax.ws.rs.core.MediaType"/>
 </qualifiedTypeNameHistroy>
